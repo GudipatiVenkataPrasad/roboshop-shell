@@ -40,24 +40,25 @@ dnf install nodejs -y &>> $LOGFILE
 VALIDATE $? "Installing the nodejs applicatio"
 
 id roboshop
-if [$? -ne 0]
+if [ $? -ne 0 ]
 then
     useradd roboshop
     VALIDATE $? "roboshop user creation"
 else
-    echo -e "Roboshop user already exists $Y SKYPPING$N"
+    echo -e "Roboshop user already exists $Y SKYPPING $N"
 fi
-mkdir -p /app &>> $LOGFILE # Is there ownt create ,otherwise it create
+
+mkdir -p /app  # Is there ownt create ,otherwise it create
 VALIDATE $? "Craeting a directory"
 curl -o /tmp/catalogue.zip https://roboshop-builds.s3.amazonaws.com/catalogue.zip &>> $LOGFILE
 VALIDATE $? "Download the application code"
-cd /app &>> $LOGFILE
-VALIDATE $? "app"
+cd /app 
+#VALIDATE $? "app"
 unzip -o /tmp/catalogue.zip &>> $LOGFILE #-o for overide
 VALIDATE $? "Unzip the catalogue file"
 npm install &>> $LOGFILE
 VALIDATE $? "Installing Dependencies"
-cp /home/centos/roboshop-shell/catalogue.services /etc/systemd/system/catalogue.service &>> $LOGFILE #use absolute,because catalogue.service exists there
+cp /home/centos/roboshop-shell/catalogue.services /etc/systemd/system/catalogue.service &>> $LOGFILE   #use absolute,because catalogue.service exists there
 VALIDATE $? "copying catalogue service file"
 systemctl daemon-reload &>> $LOGFILE
 VALIDATE $? "catalogue dameon reload"
@@ -65,9 +66,9 @@ systemctl enable catalogue &>> $LOGFILE
 VALIDATE $? "Enable the catalogue service"
 systemctl start catalogue &>> $LOGFILE
 VALIDATE $? "Start the catalogue service"
-cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
+cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo
 VALIDATE $? "copying mongodb repo"
 dnf install mongodb-org-shell -y &>> $LOGFILE
-VALIDATE $? "Installing mongodb shell"
-mongo --host mongodb.dwas.shop </app/schema/catalogue.js
+VALIDATE $? "Installing mongodb client"
+mongo --host mongodb.dwas.shop </app/schema/catalogue.js &>> $LOGFILE
 VALIDATE $? "Loading catalogue data into mongodb"
