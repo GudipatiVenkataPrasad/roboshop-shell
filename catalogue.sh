@@ -58,8 +58,9 @@ unzip -o /tmp/catalogue.zip &>> $LOGFILE #-o for overide
 VALIDATE $? "Unzip the catalogue file"
 npm install &>> $LOGFILE
 VALIDATE $? "Installing Dependencies"
-cp /home/centos/roboshop-shell/catalogue.services /etc/systemd/system/catalogue.service &>> $LOGFILE   #use absolute,because catalogue.service exists there
-VALIDATE $? "copying catalogue service file"
+
+cp /home/centos/roboshop-shell/catalogue.services /etc/systemd/system/catalogue.service &>> $LOGFILE
+VALIDATE $? "copying catalogue service"
 systemctl daemon-reload &>> $LOGFILE
 VALIDATE $? "catalogue dameon reload"
 systemctl enable catalogue &>> $LOGFILE
