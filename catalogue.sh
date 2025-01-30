@@ -8,7 +8,7 @@ R="\e[31m" # colours assign
 G="\e[32m"
 N="\e[0m"
 Y="\e[33m"
-MONGDB_HOST=mongodb.dwas.shop
+#MONGDB_HOST=mongodb.dwas.shop
 
 echo "script started and executing at $TIMESTAMP" &>>$LOGFILE
 
@@ -38,6 +38,7 @@ dnf module enable nodejs:18 -y &>> $LOGFILE
 VALIDATE $? "Enable the nodejs"
 dnf install nodejs -y &>> $LOGFILE
 VALIDATE $? "Installing the nodejs applicatio"
+
 id roboshop
 if [$? -ne 0]
 then
@@ -68,5 +69,5 @@ cp /home/centos/roboshop-shell/mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFI
 VALIDATE $? "copying mongodb repo"
 dnf install mongodb-org-shell -y &>> $LOGFILE
 VALIDATE $? "Installing mongodb shell"
-mongo --host $MONGDB_HOST </app/schema/catalogue.js
+mongo --host mongodb.dwas.shop </app/schema/catalogue.js
 VALIDATE $? "Loading catalogue data into mongodb"
