@@ -10,8 +10,9 @@ N="\e[0m"
 
 echo "script started and executing at $TIMESTAMP" &>>$LOGFILE
 
-VALIDATE(){
-    if [$1 -ne 0]
+VALIDATE()
+{
+    if [ $1 -ne 0 ]
     then 
         echo  -e "$2..$R failed $N"
         #exit 1
