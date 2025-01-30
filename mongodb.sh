@@ -1,10 +1,10 @@
 #!/bin/bash
 
-ID=$(id -u)
+ID=$(id -u) #checking root user are not 
 TIMESTAMP=$(date +%F)
-LOGFILE="/tmp/$0-$TIMESTAMP.log"
+LOGFILE="/tmp/$0-$TIMESTAMP.log" #storing log file
 
-R="\e[31m"
+R="\e[31m" # colours assign
 G="\e[32m"
 N="\e[0m"
 
@@ -23,14 +23,14 @@ VALIDATE()
     fi
 }
 
-if [ $ID -ne 0 ]
+if [ $ID -ne 0 ]  # its checking same root user are not
 then 
     echo -e "$R ERROR :: Please Run This Script with Root Acess $N"
-    exit 1
+    exit 1 # you can give other than Zero
 else 
-    echo  "your not user "
+    echo  "you are root user "
 
 fi
 
 cp mongo.repo /etc/yum.repos.d/mongo.repo &>> $LOGFILE
-VALIDATE $? "Mongodb repo
+VALIDATE $? "copied Mongodb repo"
