@@ -10,7 +10,7 @@ N="\e[0m"
 Y="\e[33m"
 #MONGDB_HOST=mongodb.dwas.shop
 
-echo "script started and executing at $TIMESTAMP" &>>$LOGFILE
+echo "script started and executing at $TIMESTAMP" &>> $LOGFILE
 
 VALIDATE()
 {
@@ -32,15 +32,15 @@ else
     echo  "you are root user"
 
 fi
-dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>>$LOGFILE
+dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>> $LOGFILE
 VALIDATE $? "Install the new version"
-dnf module enable redis:remi-6.2 -y &>>$LOGFILE
+dnf module enable redis:remi-6.2 -y &>> $LOGFILE
 VALIDATE $? "Enable the redis"
-dnf install redis -y &>>$LOGFILE
+dnf install redis -y &>> $LOGFILE
 VALIDATE $? "Install the redis"
-sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf &>>$LOGFILE
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf &>> $LOGFILE
 VALIDATE $? "Allowing remote connections"
-systemctl enable redis &>>$LOGFILE
+systemctl enable redis &>> $LOGFILE
 VALIDATE $? "Enable the redis"
-systemctl start redis &>>$LOGFILE
+systemctl start redis &>> $LOGFILE
 VALIDATE $? "start the redis"
