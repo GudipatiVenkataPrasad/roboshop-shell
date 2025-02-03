@@ -3,6 +3,7 @@
 ID=$(id -u) #checking root user are not 
 TIMESTAMP=$(date +%F)
 LOGFILE="/tmp/$0-$TIMESTAMP.log" #storing log file
+exec &>LOGFILE
 
 R="\e[31m" # colours assign
 G="\e[32m"
@@ -32,15 +33,15 @@ else
     echo  "you are root user"
 
 fi
-dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>> $LOGFILE
+dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y
 VALIDATE $? "Install the new version"
-dnf module enable redis:remi-6.2 -y &>> $LOGFILE
+dnf module enable redis:remi-6.2 -y
 VALIDATE $? "Enable the redis"
-dnf install redis -y &>> $LOGFILE
+dnf install redis -y
 VALIDATE $? "Install the redis"
-sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf &>> $LOGFILE
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis/redis.conf
 VALIDATE $? "Allowing remote connections"
-systemctl enable redis &>> $LOGFILE
+systemctl enable redis
 VALIDATE $? "Enable the redis"
-systemctl start redis &>> $LOGFILE
+systemctl start redis
 VALIDATE $? "start the redis"
