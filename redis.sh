@@ -30,16 +30,15 @@ else
     echo  "you are root user"
 
 fi
-
-dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>>$LOGFILE
+dnf install https://rpms.remirepo.net/enterprise/remi-release-8.rpm -y &>> $LOGFILE
 VALIDATE $? "Installing the redis"
-dnf module enable redis:remi-6.2 -y &>>$LOGFILE
+dnf module enable redis:remi-6.2 -y &>> $LOGFILE
 VALIDATE $? "Enable the module"
-dnf install redis -y &>>$LOGFILE
+dnf install redis -y &>> $LOGFILE
 VALIDATE $? "Install the redis"
-sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis.conf &>>$LOGFILE
+sed -i 's/127.0.0.1/0.0.0.0/g' /etc/redis.conf &>> $LOGFILE
 VALIDATE $? "Allowing the access"
-systemctl enable redis &>>$LOGFILE
+systemctl enable redis &>> $LOGFILE
 VALIDATE $? "enable the redis"
-systemctl start redis &>>$LOGFILE
+systemctl start redis &>> $LOGFILE
 VALIDATE $? "start the redis"s
