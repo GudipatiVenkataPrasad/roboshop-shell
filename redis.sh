@@ -7,8 +7,9 @@ LOGFILE="/tmp/$0-$TIMESTAMP.log" #storing log file
 R="\e[31m" # colours assign
 G="\e[32m"
 N="\e[0m"
+Y="\e[33m"
 
-echo "script started and executing at $TIMESTAMP" &>>$LOGFILE
+echo "script started and executing at $TIMESTAMP" &>> $LOGFILE
 
 VALIDATE()
 {
