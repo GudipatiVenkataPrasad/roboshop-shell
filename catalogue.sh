@@ -10,7 +10,7 @@ N="\e[0m"
 Y="\e[33m"
 #MONGDB_HOST=mongodb.dwas.shop
 
-echo "script started and executing at $TIMESTAMP" &>>$LOGFILE
+echo "script started and executing at $TIMESTAMP" &>> $LOGFILE
 
 VALIDATE()
 {
