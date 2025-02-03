@@ -3,7 +3,7 @@
 ID=$(id -u) #checking root user are not 
 TIMESTAMP=$(date +%F)
 LOGFILE="/tmp/$0-$TIMESTAMP.log" #storing log file
-exec &>LOGFILE
+exec &>$LOGFILE
 
 R="\e[31m" # colours assign
 G="\e[32m"
